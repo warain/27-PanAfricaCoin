@@ -41,7 +41,7 @@ contract PanToken {
   //transferFrom
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
     require(_value <= balanceOf[_from]);
-    // require _from accounts has enough tokenInstance
+    require(_value <= allowance[_from][msg.sender]);
     // require allowance is big enough
     // change the balance
     // update the allowance

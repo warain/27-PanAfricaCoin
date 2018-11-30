@@ -81,7 +81,6 @@ it(' handles delegated token transfers', function(){
       toAccount = accounts[3];
       spendingAccount = accounts[4];
       // transfer some token to fromAccount
-
       return tokenInstance.transfer(fromAccount, 100, { from: accounts[0] });
     }).then(function(receipt){
       // Approve spendingAccounts to spend 10 token from fromAccount
@@ -90,7 +89,12 @@ it(' handles delegated token transfers', function(){
       // Try transferring something larger than the sender balanceOf
       return tokenInstance.transferFrom(fromAccount, toAccount, 9999, { from: spendingAccount});
     }).then(assert.fail).catch(function(error){
-      assert(error.message.indexOf('revert') >= 0), 'cannot transfer value larger than balance';
-    });
+      assert(error.message.indexOf('revert') >= 0, 'cannot transfer value larger than balance');
+      // Try transferring something larger than the approved amounts
+      return tokenInstance.transferFrom(fromAccount, toAccount, 20, { from: spendingAccount });
+    }).then(assert.fail).catch(function(error){
+      assert(error.message.indexOf('revert') >= 0, 'cannot transfer value larger than approved amount');
 });
+});
+
 });
