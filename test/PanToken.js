@@ -37,6 +37,9 @@ it('transfer token ownership', function(){
       return tokenInstance.transfer.call(accounts[1], 99999999999999999999);
   }).then(assert.fail).catch(function(error) {
     assert(error.message.indexOf('revert') >= 0, 'error message must contain revert');
+    return tokenInstance.transfer.call(accounts[1], 250000, { from: accounts[0]});
+  }).then(function(success){
+    assert.equal(success, true, 'it return true');
     return tokenInstance.transfer(accounts[1], 250000, {from: accounts[0] });
   }).then(function(receipt){
     assert.equal(receipt.logs.length, 1, 'triggers one event');
