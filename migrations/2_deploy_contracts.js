@@ -1,5 +1,5 @@
-var DappToken = artifacts.require("./DappToken.sol");
+var PanToken = artifacts.require("./PanToken.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(DappToken);
+  deployer.deploy(PanToken, 1000000);
 };
