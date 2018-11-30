@@ -60,7 +60,14 @@ it('approves tokens for delegated transfers', function(){
     tokenInstance = instance;
     return tokenInstance.approve.call(accounts[1], 100);
   }).then(function(success) {
-    assert.equal(success, true, 'it returns true')
+    assert.equal(success, true, 'it returns true');
+    return tokenInstance.approve(accounts[1], 100);
+  }).then(function(receipt){
+    assert.equal(receipt.logs.length, 1, 'triggers one event');
+   assert.equal(receipt.logs[0].event, 'Approval', 'should be the "Aproval" event');
+   assert.equal(receipt.logs[0].args._owner, accounts[0], 'logs the account the tokens are authorized by');
+   assert.equal(receipt.logs[0].args._spender, accounts[1], 'logs the account the tokens are authoriized to');
+   assert.equal(receipt.logs[0].args._value, 100, 'logs the transfer amount');
   });
 });
 

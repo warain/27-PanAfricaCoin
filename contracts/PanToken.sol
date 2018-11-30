@@ -12,7 +12,12 @@ contract PanToken {
     uint256 _value
   );
 
-  //transfer event
+  //approved
+  event Approval(
+    address indexed _owner,
+    address indexed _spender,
+    uint256 _value
+  );
 
   mapping(address => uint256) public balanceOf;
  //allowance
@@ -31,6 +36,9 @@ contract PanToken {
   }
   // approve
   function approve(address _spender, uint256 _value) public returns (bool success) {
+    //allowance
+    Approval(msg.sender, _spender, _value);
+    //approved events
     return true;
   }
   //transferFrom
