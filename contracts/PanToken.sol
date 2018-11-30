@@ -12,8 +12,10 @@ contract PanToken {
     uint256 _value
   );
 
-  mapping(address => uint256) public balanceOf;
+  //transfer event
 
+  mapping(address => uint256) public balanceOf;
+ //allowance
   function PanToken (uint256 _initialSupply) public {
     balanceOf[msg.sender] = _initialSupply;
     totalSupply = _initialSupply;
@@ -27,4 +29,11 @@ contract PanToken {
 
         return true;
   }
+  // approve
+  function approve(address _spender, uint256 _value) public returns (bool success) {
+    return true;
+  }
+  //transferFrom
+
+
 }
