@@ -112,6 +112,10 @@ it(' handles delegated token transfers', function(){
   return tokenInstance.balanceOf(toAccount);
 }).then(function(balance){
   assert.equal(balance.toNumber(), 10, 'adds the amount to the receiving accounts');
+  return tokenInstance.allowance(fromAccount, spendingAccount);
+}).then(function(allowance) {
+  assert.equal(allowance, 0, 'deducts the amount from the allowance');
+
 });
 });
 
