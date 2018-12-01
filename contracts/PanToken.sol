@@ -1,7 +1,7 @@
 pragma solidity ^0.4.2;
 
 contract PanToken {
-  string public name = "PAN Token";
+  string public name = "Pan Token";
   string public symbol = "PAN";
   string public standard = "Pan Token v1.0";
   uint256 public totalSupply;
@@ -49,9 +49,5 @@ contract PanToken {
 
     Transfer(_from, _to, _value);
     return true;
-    // update the allowance
-    // call the transfer event
-
-    // return a boolean
   }
 }

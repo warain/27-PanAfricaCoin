@@ -8,7 +8,7 @@ it('initializes the contracts of the correct values', function(){
     tokenInstance = instance;
     return tokenInstance.name();
   }).then(function(name){
-    assert.equal(name, 'PAN Token', 'has the correct name');
+    assert.equal(name, 'Pan Token', 'has the correct name');
     return tokenInstance.symbol();
   }).then(function(symbol){
     assert.equal(symbol, 'PAN', 'has the correct symbol');
@@ -115,11 +115,6 @@ it(' handles delegated token transfers', function(){
   return tokenInstance.allowance(fromAccount, spendingAccount);
 }).then(function(allowance) {
   assert.equal(allowance, 0, 'deducts the amount from the allowance');
-
 });
 });
-
-
-
-
 });
