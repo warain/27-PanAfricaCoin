@@ -94,6 +94,9 @@ it(' handles delegated token transfers', function(){
       return tokenInstance.transferFrom(fromAccount, toAccount, 20, { from: spendingAccount });
     }).then(assert.fail).catch(function(error){
       assert(error.message.indexOf('revert') >= 0, 'cannot transfer value larger than approved amount');
+      return tokenInstance.transferFrom.call(fromAccount, toAccount, 10, { from: spendingAccount});
+}).then(function(success){
+  assert.equal(success, true);
 });
 });
 
