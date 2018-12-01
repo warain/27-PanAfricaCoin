@@ -97,7 +97,17 @@ it(' handles delegated token transfers', function(){
       return tokenInstance.transferFrom.call(fromAccount, toAccount, 10, { from: spendingAccount});
 }).then(function(success){
   assert.equal(success, true);
+  return tokenInstance.transferFrom(fromAccount, toAccount, 10, { from: spendingAccount });
+}).then(function(receipt){
+  assert.equal(receipt.logs.length, 1, 'triggers one event');
+ assert.equal(receipt.logs[0].event, 'Transfer', 'should be the "Transfer" event');
+ assert.equal(receipt.logs[0].args._from, fromAccount, 'logs the account the tokens are transferred from');
+ assert.equal(receipt.logs[0].args._to, toAccount, 'logs the account the tokens are transferred to');
+ assert.equal(receipt.logs[0].args._value, 10, 'logs the transfer amount');
 });
 });
+
+
+
 
 });
