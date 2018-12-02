@@ -32,6 +32,7 @@ contract PanTokenSale {
   //Ending token tokenSaleInstance
   function endSale() public {
       // Reguire admin
+      require(msg.sender == admin);
       // Transfer token to admin
       // destroy contract
  }
