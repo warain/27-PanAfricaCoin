@@ -88,6 +88,9 @@ contract('PanTokenSale', function(accounts){
        // End sale as admin
        return tokenSaleInstance.endSale({ from: admin });
      }).then(function(receipt) {
+       return tokenInstance.balanceOf(admin);
+  }).then(function(balance){
+    assert.equal(balance.toNumber(), 999990, 'returns all unsold token to admin');
   });
 });
 
