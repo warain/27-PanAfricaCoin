@@ -19,7 +19,6 @@ contract PanToken {
 
   mapping(address => uint256) public balanceOf;
   mapping(address => mapping(address => uint256)) public allowance;
-
   function PanToken(uint256 _initialSupply) public {
     balanceOf[msg.sender] = _initialSupply;
     totalSupply = _initialSupply;

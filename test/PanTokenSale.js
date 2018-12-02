@@ -73,7 +73,18 @@ contract('PanTokenSale', function(accounts){
 
       });
   });
-
+it('ends token sale', function(){
+  return PanToken.deployed().then(function(instance){
+    tokenInstance = instance;
+    return PanTokenSale.deployed();
+  }).then(function(instance){
+    tokenSaleInstance = instance;
+    // Try to end sale from account other than admin
+    return tokenSaleInstance.endSale({ from: buyer });
+  }).then(assert.fail).catch(function(error){
+    assert(error.message.indexOf('revert' >= 0, 'must be admin to end sale'));
+  });
+});
 
 
 

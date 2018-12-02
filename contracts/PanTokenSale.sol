@@ -29,4 +29,10 @@ contract PanTokenSale {
 
       Sell(msg.sender, _numberOfTokens);
   }
+  //Ending token tokenSaleInstance
+  function endSale() public {
+      // Reguire admin
+      // Transfer token to admin
+      // destroy contract
+ }
 }
