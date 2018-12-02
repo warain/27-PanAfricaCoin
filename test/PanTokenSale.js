@@ -9,6 +9,9 @@ contract('PanTokenSale', function(accounts){
       return PanTokenSaleInstance.address
     }).then(function(address){
       assert.notEqual(address, 0x0, ' has contract address');
+      return PanTokenSaleInstance.tokenContract();
+    }).then(function(address){
+      assert.notEqual(address, 0x0, 'has a token contract address');
     });
   });
 });

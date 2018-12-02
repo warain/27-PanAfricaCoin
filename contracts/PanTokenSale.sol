@@ -1,10 +1,15 @@
 pragma solidity ^0.4.2;
 
-contract PanTokenSale {
+import "./PanToken.sol";
 
-    function PanTokenSale() public {
-        // Assign an Admin
+contract PanTokenSale {
+    address admin;
+    PanToken public tokenContract;
+
+    function PanTokenSale(PanToken _tokenContract) public {
+        admin = msg.sender;
+        tokenContract = _tokenContract;
         // Assign Token Contract
-        // Token price 
+        // Token price
     }
 }
