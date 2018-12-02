@@ -22,9 +22,8 @@ contract PanTokenSale {
     }
 
     function buyTokens(uint256 _numberOfTokens) public payable {
-      // Require that value is equal to token tokenPrice
        require(msg.value == multiply(_numberOfTokens, tokenPrice));
-      // Require enough contract has enough tokenSold
+      require(tokenContract.balanceOf(this) >= _numberOfTokens);
       // Require that a transfer is successful
       tokenSold += _numberOfTokens;
       Sell(msg.sender, _numberOfTokens);
