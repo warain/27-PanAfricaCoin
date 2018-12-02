@@ -16,14 +16,17 @@ contract PanTokenSale {
         tokenPrice = _tokenPrice;
     }
 
-    // Buy PanTokenSale
+    //multiplier
+    function multiply(uint x, uint y) internal pure returns (uint z){
+      require(y == 0 || (z = x * y)/y == x);
+    }
+
     function buyTokens(uint256 _numberOfTokens) public payable {
       // Require that value is equal to token tokenPrice
+       require(msg.value == multiply(_numberOfTokens, tokenPrice));
       // Require enough contract has enough tokenSold
       // Require that a transfer is successful
       tokenSold += _numberOfTokens;
-      // Trigger Sell event
       Sell(msg.sender, _numberOfTokens);
     }
-    // end sale
 }
