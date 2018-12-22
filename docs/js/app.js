@@ -26,18 +26,18 @@ App = {
   },
 
   initContracts: function() {
-    $.getJSON("PanTokenSale.json", function(panTokenSale) {
-      App.contracts.PanTokenSale = TruffleContract(panTokenSale);
-      App.contracts.PanTokenSale.setProvider(App.web3Provider);
-      App.contracts.PanTokenSale.deployed().then(function(panTokenSale) {
-        console.log("Pan Token Sale Address:", panTokenSale.address);
+    $.getJSON("DappTokenSale.json", function(dappTokenSale) {
+      App.contracts.DappTokenSale = TruffleContract(dappTokenSale);
+      App.contracts.DappTokenSale.setProvider(App.web3Provider);
+      App.contracts.DappTokenSale.deployed().then(function(dappTokenSale) {
+        console.log("Dapp Token Sale Address:", dappTokenSale.address);
       });
     }).done(function() {
-      $.getJSON("PanToken.json", function(panToken) {
-        App.contracts.PanToken = TruffleContract(panToken);
-        App.contracts.PanToken.setProvider(App.web3Provider);
-        App.contracts.PanToken.deployed().then(function(panToken) {
-          console.log("Pan Token Address:", panToken.address);
+      $.getJSON("DappToken.json", function(dappToken) {
+        App.contracts.DappToken = TruffleContract(dappToken);
+        App.contracts.DappToken.setProvider(App.web3Provider);
+        App.contracts.DappToken.deployed().then(function(dappToken) {
+          console.log("Dapp Token Address:", dappToken.address);
         });
         App.listenForEvents();
         return App.render();
@@ -47,7 +47,7 @@ App = {
 
   // Listen for events emitted from the contract
   listenForEvents: function() {
-    App.contracts.PanTokenSale.deployed().then(function(instance) {
+    App.contracts.DappTokenSale.deployed().then(function(instance) {
       // Restart Chrome if you are unable to receive this event
       // This is a known issue with Metamask
       // https://github.com/MetaMask/metamask-extension/issues/2393
@@ -68,8 +68,8 @@ App = {
     }
     App.loading = true;
 
-    var panTokenSaleInstance;
-    var panTokenInstance;
+    var dappTokenSaleInstance;
+    var dappTokenInstance;
 
     var loader = $("#loader");
     var content = $("#content");
@@ -86,13 +86,13 @@ App = {
     });
 
     // Load token sale contract
-    App.contracts.PanTokenSale.deployed().then(function(instance) {
-      panTokenSaleInstance = instance;
-      return panTokenSaleInstance.tokenPrice();
+    App.contracts.DappTokenSale.deployed().then(function(instance) {
+      dappTokenSaleInstance = instance;
+      return dappTokenSaleInstance.tokenPrice();
     }).then(function(tokenPrice) {
       App.tokenPrice = tokenPrice;
       $('.token-price').html(web3.fromWei(App.tokenPrice, "ether").toNumber());
-      return panTokenSaleInstance.tokensSold();
+      return dappTokenSaleInstance.tokensSold();
     }).then(function(tokensSold) {
       App.tokensSold = tokensSold.toNumber();
       $('.tokens-sold').html(App.tokensSold);
@@ -101,11 +101,11 @@ App = {
       $('#progress').css('width', progressPercent + '%');
 
       // Load token contract
-      App.contracts.PanToken.deployed().then(function(instance) {
-        panTokenInstance = instance;
-        return panTokenInstance.balanceOf(App.account);
+      App.contracts.DappToken.deployed().then(function(instance) {
+        dappTokenInstance = instance;
+        return dappTokenInstance.balanceOf(App.account);
       }).then(function(balance) {
-        $('.pan-balance').html(balance.toNumber())
+        $('.dapp-balance').html(balance.toNumber())
       });
 
       App.loading = false;
@@ -122,7 +122,7 @@ App = {
     $("#loader").show();
     var numberOfTokens = $('#numberOfTokens').val();
     console.log("buying tokens...", numberOfTokens);
-    App.contracts.PanTokenSale.deployed().then(function(instance) {
+    App.contracts.DappTokenSale.deployed().then(function(instance) {
       return instance.buyTokens(numberOfTokens, {
         from: App.account,
         value: numberOfTokens * App.tokenPrice,
