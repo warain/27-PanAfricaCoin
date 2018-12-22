@@ -1,7 +1,6 @@
 var PanTokenSale = artifacts.require("./PanTokenSale.sol");
 var PanToken = artifacts.require("./PanToken.sol");
 
-
 contract('PanTokenSale', function(accounts){
   var tokenInstance;
   var tokenSaleInstance;
